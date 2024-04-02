@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.label{
+  @apply block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2
+}
+
+.input{
+  @apply rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-1 ring-offset-1 ring-[#7747ff] outline-0
+}
