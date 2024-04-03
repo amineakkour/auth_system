@@ -22,6 +22,6 @@ class RegisterController extends Controller
 
         $newRecord->save();
 
-        return redirect()->route("login.show")->with("success", "Vous etes bien connecté");
+        return redirect()->route("login.show")->with("success", "Le compte a été enregistré avec succès");
     }
 }

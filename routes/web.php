@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,3 +19,8 @@ Route::get("/register", [RegisterController::class, "show"])->name("register.sho
 
 Route::post("/register", [RegisterController::class, "register"])->name("register");
 
+Route::get("/users", [UsersController::class, "show"])->name("users.show");
+
+Route::get("/users/udpate/{user}", [UsersController::class, "showUpdate"])->name("users.update.show");
+
+Route::delete("/users/delete/{user}", [UsersController::class, "destroy"])->name("users.destroy");
