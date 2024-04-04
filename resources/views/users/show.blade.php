@@ -10,19 +10,22 @@
       <table class="table">
         <thead>
           <tr>
+            <th class="border-none w-16"></th>
             <th>#Id</th>
             <th>Name</th>
-            
+            <th>email</th>
           </tr>
         </thead>
 
         <tbody>
           @foreach ($users as $user)
             <tr>
+              <td><img class="rounded-full" src="{{ asset('storage/users/guest.png') }}" class="border" alt="user-profile"></td>
               <td>{{$user->id}}</td>
               <td>{{$user->name}}</td>
+              <td>{{$user->email}}</td>
               <td class="w-28 bg-blue-50 text-blue-500 text-center">
-                <a href="{{route('users.update.show', ['user' => $user->id])}}">Update</a>
+                <a href="{{route('users.edit', ['user' => $user->id])}}">Edit</a>
               </td>
 
               <td class="w-28 bg-red-50 text-red-500 text-center">

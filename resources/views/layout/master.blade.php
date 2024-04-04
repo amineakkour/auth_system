@@ -8,7 +8,7 @@
   @vite('resources/css/app.css')
 </head>
 <body>
-  <div class="p-3 sm:p-5">
+  <div class="p-3 sm:p-5 max-w-6xl mx-auto">
     @include("partials.navigation")
     <div>
       @yield("content")

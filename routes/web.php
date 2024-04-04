@@ -21,6 +21,8 @@ Route::post("/register", [RegisterController::class, "register"])->name("registe
 
 Route::get("/users", [UsersController::class, "show"])->name("users.show");
 
-Route::get("/users/udpate/{user}", [UsersController::class, "showUpdate"])->name("users.update.show");
+Route::get("/users/udpate/{user}", [UsersController::class, "edit"])->name("users.edit");
+
+Route::put("/users/udpate/{user}", [UsersController::class, "update"])->name("users.update");
 
 Route::delete("/users/delete/{user}", [UsersController::class, "destroy"])->name("users.destroy");

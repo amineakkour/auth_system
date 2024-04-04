@@ -17,3 +17,15 @@
 .table td, .table th{
   @apply border p-2
 }
+
+.inputField {
+  @apply my-4
+}
+
+.inputField label{
+  @apply w-36 inline-block
+}
+
+.inputField input{
+  @apply border border-gray-300 w-96 px-2 py-1 rounded outline-none focus:ring-1
+}

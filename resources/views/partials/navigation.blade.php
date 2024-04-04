@@ -1,5 +1,5 @@
 <nav class="flex items-center justify-between">
-  <div class="font-bold text-2xl text-[#7747ff]">LOGO</div>
+  <div class="font-bold text-2xl text-[#7747ff] cursor-pointer" title="go back" onclick="window.history.back()">Auth</div>
 
   <ul class="flex gap-3">
     <li><a class="w-16 text-center block hover:font-medium hover:text-[#7747ff]" href="{{route("home")}}">Home</a></li>
