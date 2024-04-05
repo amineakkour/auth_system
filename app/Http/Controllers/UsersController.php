@@ -28,25 +28,19 @@ class UsersController extends Controller
             $imageName = time() . Str::random(2) .  '.' . $image->getClientOriginalExtension();
             $image->move(public_path('storage/users'), $imageName);
             
-            $user->update([
-                "name" => $validated["name"],
-                "username" => $validated["username"],
-                "email" => $validated["email"],
-                "birthday" => $validated["birthday"],
-                "image" => $imageName,
-            ]);
+            $user->name = $validated["name"];
+            $user->username = $validated["username"];
+            $user->birthday = $validated["birthday"];
+            $user->email = $validated["email"];
+            $user->image = $imageName;
 
             $user->save();
             
             return back()->with("success", "You have successfully updated the user!");
         };
 
-        $user->update([
-            "name" => $validated["name"],
-            "username" => $validated["username"],
-            "birthday" => $validated["birthday"],
-            "email" => $validated["email"],
-        ]);
+        $user->update($validated);
+
         $user->save();
 
         return back()->with("success", "You have successfully updated the user!");

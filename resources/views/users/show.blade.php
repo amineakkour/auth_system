@@ -20,7 +20,9 @@
         <tbody>
           @foreach ($users as $user)
             <tr>
-              <td><img class="rounded-full" src="{{ asset('storage/users/guest.png') }}" class="border" alt="user-profile"></td>
+              <td><img class="rounded-full"
+              src="{{ $user->image ? asset('storage/users/' . $user->image) : asset('storage/users/guest.png') }}" class="border" alt="user-profile"
+              ></td>
               <td>{{$user->id}}</td>
               <td>{{$user->name}}</td>
               <td>{{$user->email}}</td>
