@@ -23,9 +23,9 @@
 }
 
 .inputField label{
-  @apply w-36 inline-block
+  @apply text-sm text-gray-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 min-w-32 inline-block
 }
 
 .inputField input{
-  @apply border border-gray-300 w-96 px-2 py-1 rounded outline-none focus:ring-1
+  @apply p-2 border rounded-md w-96 outline-none focus:ring-1 text-sm
 }

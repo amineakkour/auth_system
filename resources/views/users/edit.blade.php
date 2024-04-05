@@ -2,50 +2,74 @@
 
 @section("title", "Edit user " . $user->id)
 
-{{-- $table->string('name');
-$table->string("username")->nullable();
-$table->string("picture")->nullable();
-$table->string('email')->unique();
-$table->date("birthday")->nullable();
-$table->timestamp('email_verified_at')->nullable();
---}}
-
 @section("content")
   <div class="">
     <h1 class="text-2xl my-5">Edit User {{$user->id}}</h1>
+    <div class="text-sm">Fields contain (*) are required</div>
+    @if(session("success"))  
+      <p class="text-green-600 text-sm">{{ session('success') }}</p>
+    @endif
 
       <form action="{{route('users.update', ["user" => $user->id])}}" method="post" enctype="multipart/form-data">
       @method("PUT")
       @csrf
 
       <div class="inputField">
-        <label for="name">Full name</label>
-        <input type="text" value="{{$user->name}}">
+        <label>Full name*</label>
+        <input type="text" value="{{old("name", $user->name)}}" name="name">
+        @error("name")
+        <p class="text-red-500 text-sm">{{$message}}</p>
+        @enderror
       </div>
 
       <div class="inputField">
-        <label for="name">Username</label>
-        <input type="text" value="{{$user->username}}">
+        <label>Username</label>
+        <input type="text" value="{{old("username", $user->username)}}" name="username">
+        @error("username")
+          <p class="text-red-500 text-sm">{{$message}}</p>
+        @enderror
       </div>
 
       <div class="inputField">
-        <label for="name">Profile Picture</label>
-        <input type="image">
+            <label >Picture</label>
+            <input type="file" name="image" class="file:border-0 file:bg-gray-50 file:text-gray-600 file:text-sm file:font-medium">
+
+        @error("image")
+          <p class="text-red-500 text-sm">{{$message}}</p>
+        @enderror
       </div>
 
       <div class="inputField">
-        <label for="name">Email</label>
-        <input type="email" value="{{$user->email}}">
+        <label>Email*</label>
+        <input type="email" value="{{$user->email}}" name="email">
+        @error("email")
+          <p class="text-red-500 text-sm">{{$message}}</p>
+        @enderror
+      </div>
+
+
+      <div class="inputField">
+        <label>New Password</label>
+        <input type="email" name="new_passw">
+        @error("email")
+          <p class="text-red-500 text-sm">{{$message}}</p>
+        @enderror
       </div>
 
       <div class="inputField">
-        <label for="name">Birthday</label>
-        <input type="date" value="{{$user->birthday}}">
+        <label>Confirm Password</label>
+        <input type="email" name="new_pass_confirm">
+        @error("email")
+          <p class="text-red-500 text-sm">{{$message}}</p>
+        @enderror
       </div>
 
       <div class="inputField">
-        <label for="name">Email Verified at</label>
-        <input type="date" value="{{$user->email_verified_at}}">
+        <label>Birthday</label>
+        <input type="date" value="{{$user->birthday}}" name="birthday">
+        @error("birthday")
+        <p class="text-red-500 text-sm">{{$message}}</p>
+        @enderror
       </div>
 
       <div>

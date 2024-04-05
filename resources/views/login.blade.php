@@ -16,7 +16,6 @@
           
         @elseif(session("success"))  
           <p class="text-green-600 text-sm">{{ session('success') }}</p>
-
         @endif
 
         <div class="block relative"> 

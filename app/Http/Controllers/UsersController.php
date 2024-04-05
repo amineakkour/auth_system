@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateUserRequest;
 
 class UsersController extends Controller
 {
@@ -17,8 +19,37 @@ class UsersController extends Controller
         return view("users.edit", compact("user"));
     }
 
-    function update(User $user, Request $request){
-            return $request;
+    function update(User $user, UpdateUserRequest $request){
+        $validated = $request->validated();
+
+        
+        if($request->hasFile("image")){
+            $image = $request->file("image");
+            $imageName = time() . Str::random(2) .  '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('storage/users'), $imageName);
+            
+            $user->update([
+                "name" => $validated["name"],
+                "username" => $validated["username"],
+                "email" => $validated["email"],
+                "birthday" => $validated["birthday"],
+                "image" => $imageName,
+            ]);
+
+            $user->save();
+            
+            return back()->with("success", "You have successfully updated the user!");
+        };
+
+        $user->update([
+            "name" => $validated["name"],
+            "username" => $validated["username"],
+            "birthday" => $validated["birthday"],
+            "email" => $validated["email"],
+        ]);
+        $user->save();
+
+        return back()->with("success", "You have successfully updated the user!");
     }
 
     function destroy(User $user){
