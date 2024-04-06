@@ -5,24 +5,29 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-})->name("home");
+Route::get('/', function () {return view('home');})->name("home");
 
-Route::get("/login", [LoginController::class, "show"])->name("login.show");
+Route::controller(LoginController::class)->group(function () {
+    Route::prefix("login")->name("login")->group(function (){
+        Route::get("/", "show")->name(".show");
+        Route::post("/", "login")->name("");
+    });
+    Route::get("/logout", "logout")->name("logout");
+});
 
-Route::post("/login", [LoginController::class, "login"])->name("login");
+Route::controller(RegisterController::class)->group(function () {
+    Route::prefix("register")->name("register")->group(function (){
+        Route::get("/", "show")->name(".show");
+        Route::post("/", "register")->name("");
+    });
+});
 
-Route::get("/logout", [LoginController::class, "logout"])->name("logout");
 
-Route::get("/register", [RegisterController::class, "show"])->name("register.show");
-
-Route::post("/register", [RegisterController::class, "register"])->name("register");
-
-Route::get("/users", [UsersController::class, "show"])->name("users.show");
-
-Route::get("/users/udpate/{user}", [UsersController::class, "edit"])->name("users.edit");
-
-Route::put("/users/udpate/{user}", [UsersController::class, "update"])->name("users.update");
-
-Route::delete("/users/delete/{user}", [UsersController::class, "destroy"])->name("users.destroy");
+Route::controller(UsersController::class)->group(function () {
+    Route::prefix("users")->name("users")->group(function (){
+        Route::get("/","show")->name(".show");
+        Route::get("/udpate/{user}","edit")->name(".edit");
+        Route::put("/udpate/{user}", "update")->name(".update");
+        Route::delete("/delete/{user}", "destroy")->name(".destroy");
+    });
+});
