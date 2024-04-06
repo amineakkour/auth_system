@@ -4,7 +4,7 @@
   <ul class="flex gap-3">
     <li><a class="w-16 text-center block hover:font-medium hover:text-[#7747ff]" href="{{route("home")}}">Home</a></li>
     @auth
-    <li><a class="w-16 text-center block hover:font-medium hover:text-[#7747ff]" href="{{route("users.show")}}">Users</a></li>
+    <li><a class="w-16 text-center block hover:font-medium hover:text-[#7747ff]" href="{{route("users.index")}}">Users</a></li>
     <li><a class="w-28 text-center block hover:font-medium hover:text-[#7747ff]" href="{{route("logout")}}">Deconnexion</a></li>
     @else
       <li><a class="w-16 text-center block hover:font-medium hover:text-[#7747ff]" href="{{route("login")}}">Login</a></li>

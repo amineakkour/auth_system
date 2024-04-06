@@ -22,12 +22,4 @@ Route::controller(RegisterController::class)->group(function () {
     });
 });
 
-
-Route::controller(UsersController::class)->group(function () {
-    Route::prefix("users")->name("users")->group(function (){
-        Route::get("/","show")->name(".show");
-        Route::get("/udpate/{user}","edit")->name(".edit");
-        Route::put("/udpate/{user}", "update")->name(".update");
-        Route::delete("/delete/{user}", "destroy")->name(".destroy");
-    });
-});
+Route::resource("users", UsersController::class);

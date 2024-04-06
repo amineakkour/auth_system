@@ -9,7 +9,8 @@ use App\Http\Requests\UpdateUserRequest;
 
 class UsersController extends Controller
 {
-    function show(){
+    
+    function index(){
         // $users = User::all();
         $users = User::paginate(10);
         return view("users.show", compact("users"));
