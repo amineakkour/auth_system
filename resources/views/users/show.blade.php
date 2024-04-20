@@ -14,6 +14,7 @@
             <th>#Id</th>
             <th>Name</th>
             <th>email</th>
+            <th>role</th>
           </tr>
         </thead>
 
@@ -26,6 +27,7 @@
               <td>{{$user->id}}</td>
               <td>{{$user->name}}</td>
               <td>{{$user->email}}</td>
+              <td>{{$user->isadmin ? "admin" : "user"}}</td>
               <td class="w-28 bg-blue-50 text-blue-500 text-center">
                 <a href="{{route('users.edit', ['user' => $user->id])}}">Edit</a>
               </td>

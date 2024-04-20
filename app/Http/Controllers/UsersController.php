@@ -4,26 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\UpdateUserRequest;
 
 class UsersController extends Controller
 {
-    
     function index(){
-        // $users = User::all();
+        Gate::authorize("show-users");
         $users = User::paginate(10);
         return view("users.show", compact("users"));
     }
 
     function edit(User $user){
-        return view("users.edit", compact("user"));
+        if(Gate::allows("update-user", $user)){
+            return view("users.edit", compact("user"));
+        }else{
+            abort(403);
+        }
     }
 
     function update(User $user, UpdateUserRequest $request){
         $validated = $request->validated();
 
-        
+        if(!Gate::allows("update-user", $user)){
+            abort(403);
+        }
+
         if($request->hasFile("image")){
             $image = $request->file("image");
             $imageName = time() . Str::random(2) .  '.' . $image->getClientOriginalExtension();
