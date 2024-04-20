@@ -10,25 +10,34 @@ use App\Http\Requests\UpdateUserRequest;
 class UsersController extends Controller
 {
     function index(){
-        Gate::authorize("show-users");
+        $response = Gate::inspect("admin");
+
+        if(!$response->allowed()){
+            return view("errors.index", ["error_message" => $response->message()]);
+        }
+        
         $users = User::paginate(10);
         return view("users.show", compact("users"));
     }
 
     function edit(User $user){
-        if(Gate::allows("update-user", $user)){
-            return view("users.edit", compact("user"));
-        }else{
-            abort(403);
+        $response = Gate::inspect("update-user", $user);
+
+        if(!$response->allowed()){
+            return view("errors.index", ["error_message" => $response->message()]);
         }
+
+        return view("users.edit", compact("user"));
     }
 
     function update(User $user, UpdateUserRequest $request){
-        $validated = $request->validated();
+        $response = Gate::inspect("update-user", $user);
 
-        if(!Gate::allows("update-user", $user)){
-            abort(403);
+        if(!$response->allowed()){
+            return view("errors.index", ["error_message" => $response->message()]);
         }
+
+        $validated = $request->validated();
 
         if($request->hasFile("image")){
             $image = $request->file("image");
@@ -54,6 +63,11 @@ class UsersController extends Controller
     }
 
     function destroy(User $user){
+        $response = Gate::inspect("admin", $user);
+
+        if(!$response->allowed()){
+            return view("errors.index", ["error_message" => $response->message()]);
+        }
         $user->delete();
         return redirect()->back()->with("success", "User with #id" . $user->id . " was successfully deleted");
     }
